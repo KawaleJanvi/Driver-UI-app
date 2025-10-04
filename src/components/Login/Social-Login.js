@@ -2,8 +2,34 @@ import React from 'react';
 import { auth, googleProvider, githubProvider, appleProvider, signInWithPopup } from '../../services/Initialize-sso';
 import { Button } from "baseui/button";
 import { FaGoogle, FaGithub, FaApple } from "react-icons/fa";
+import { useStyletron } from 'baseui';
 
 export default function SocialLogin() {
+    const [css, theme] = useStyletron();
+    const overrides = {
+        BaseButton: {
+            style: {
+                backgroundColor: theme.colors.teal600,
+                color: "white",
+                borderRadius: "50%",
+                width: "48px",
+                height: "48px",
+                padding: "0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                lineHeight: "1",
+                ":hover": {
+                    backgroundColor: theme.colors.teal900,
+                },
+            },
+        },
+        StartEnhancer: {
+            style: {
+                marginLeft: "0", marginRight: "0",
+            },
+        },
+    };
     const signInWithGoogle = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider);
@@ -32,62 +58,27 @@ export default function SocialLogin() {
     };
 
     return (
-        <div style={{ display: "flex", gap: "12px", flexDirection: "column" }}>
-
+        <div style={{ display: "flex", gap: "12px", flexDirection: "row", justifyContent: "center" }}>
             <Button
-                startEnhancer={() => <FaGoogle size={20} />}
-                overrides={{
-                    BaseButton: {
-                        style: ({ $theme }) => ({
-                            backgroundColor: "#4285F4",
-                            color: "white",
-                            ":hover": {
-                                backgroundColor: "#357AE8",
-                            },
-                        }),
-                    },
-                }}
+                startEnhancer={() => <FaGoogle size={18} />}
+                overrides={overrides}
                 onClick={signInWithGoogle}
             >
-                Continue with Google
             </Button>
 
             <Button
-                startEnhancer={() => <FaGithub size={20} />}
-                overrides={{
-                    BaseButton: {
-                        style: ({ $theme }) => ({
-                            backgroundColor: "#24292e",
-                            color: "white",
-                            ":hover": {
-                                backgroundColor: "#1b1f23",
-                            },
-                        }),
-                    },
-                }}
+                startEnhancer={() => <FaGithub size={18} />}
+                overrides={overrides}
                 onClick={signInWithGitHub}
             >
-                Continue with GitHub
             </Button>
 
             <Button
-                startEnhancer={() => <FaApple size={20} />}
-                overrides={{
-                    BaseButton: {
-                        style: ({ $theme }) => ({
-                            backgroundColor: "black",
-                            color: "white",
-                            ":hover": {
-                                backgroundColor: "#333333",
-                            },
-                        }),
-                    },
-                }}
+                startEnhancer={() => <FaApple size={18} />}
+                overrides={overrides}
                 onClick={signInWithApple}
             >
-                Continue with Apple
             </Button>
-
         </div>
 
     );

@@ -5,12 +5,22 @@ import {
    StyledNavigationList as NavigationList,
 } from "baseui/header-navigation";
 import Logo from '../../assets/logo.svg';
-import { BaseProvider, DarkTheme, LightTheme } from "baseui";
+import { BaseProvider, DarkTheme, useStyletron } from "baseui";
 
-const Header = () => (
+const Header = () => {
+   const [css, theme] = useStyletron();
+
+   const headerTheme = {
+          Root: {
+            style: {
+              backgroundColor: theme.colors.teal900, 
+            },
+          },
+        }
+   return(
    <BaseProvider theme={DarkTheme}>
       <HeaderWrapper data-testid="Header">
-         <HeaderNavigation>
+         <HeaderNavigation overrides={headerTheme}>
             <NavigationList $align={ALIGN.left}>
                <img src={Logo} alt="RaidSwift Logo" />
             </NavigationList>
@@ -18,6 +28,7 @@ const Header = () => (
       </HeaderWrapper>
    </BaseProvider>
 );
+}
 
 Header.propTypes = {};
 

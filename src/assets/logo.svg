@@ -1,6 +1,6 @@
 <svg width="100px" height="30px" viewBox="0 0 32 15" xmlns="http://www.w3.org/2000/svg">
   <title>RideSwift</title>
-  <rect x="0" y="0" width="32" height="15" fill="rgb(22, 22, 22)"/>
+  <rect x="0" y="0" width="32" height="15" fill="rgba(22, 22, 22, 0)"/>
   <text
     x="16"
     y="9"

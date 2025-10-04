@@ -8,10 +8,13 @@ import "./Login.css";
 import { authenticate } from "../../services/Login.service";
 import { ToasterContainer, toaster } from 'baseui/toast';
 import SocialLogin from "./Social-Login";
+import { useStyletron } from "baseui";
+import { showToast } from "../../common/toaster";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [css, theme] = useStyletron();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,16 +22,21 @@ export default function Login() {
       const response = await authenticate(email, password);
       localStorage.setItem("authToken", response.data.token);
     } catch (error) {
-      toaster.negative(error.message);
+      showToast(error.message, "error", theme);
     }
   };
 
   return (
     <div className="page-container">
-      <ToasterContainer />
       <div className="login-container">
         <LoginWrapper data-testid="Login">
-          <HeadingMedium>Whats your email and password?</HeadingMedium>
+          <HeadingMedium overrides={{
+            Block: {
+              style: {
+                color: theme.colors.teal800,
+              },
+            }
+          }}>Whats your email and password?</HeadingMedium>
           <form onSubmit={handleSubmit}>
             <FormControl label={null}>
               <Input
@@ -55,22 +63,25 @@ export default function Login() {
               disabled={!email || !password}
               className="w-full mt-4"
               overrides={{
-                BaseButton: { style: { width: "100%" } }
+                BaseButton: {
+                  style: {
+                    width: "100%",
+                    backgroundColor: theme.colors.teal600
+                  }
+                }
               }}
             >
               Continue
             </Button>
           </form>
         </LoginWrapper>
-
         <div className="login-divider">
           <span className="line" />
-          <span className="text"> or </span>
+          <span className="text">Or Sign In with</span>
           <span className="line" />
         </div>
-
         <SocialLogin />
-      </div>  
+      </div>
     </div>
   );
 }
