@@ -16,6 +16,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [css, theme] = useStyletron();
 
+    const isValidEmail = (email) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isValidPassword = (password) =>
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/.test(password);
+
+  const isFormValid = isValidEmail(email) && isValidPassword(password);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -60,7 +68,7 @@ export default function Login() {
             </FormControl>
             <Button
               type="submit"
-              disabled={!email || !password}
+              disabled={!isFormValid}
               className="w-full mt-4"
               overrides={{
                 BaseButton: {
