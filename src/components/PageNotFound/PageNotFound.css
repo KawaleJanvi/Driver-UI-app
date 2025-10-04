@@ -1,0 +1,11 @@
+.page-not-found{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.page-not-found img{
+    width: 50%;
+    height: auto;
+}
